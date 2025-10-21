@@ -1,12 +1,15 @@
 package com.example.apitest;
 
+import java.util.ArrayList;
+
 public class DataModel {
     int albumId;
     int id;
     String title;
     String url;
     String thumbnailUrl;
-
+    public DataModel() {
+    }
     public DataModel(int albumId, int id, String title, String url, String thumbnailUrl) {
         this.albumId = albumId;
         this.id = id;
@@ -54,4 +57,5 @@ public class DataModel {
     public void setThumbnailUrl(String thumbnailUrl) {
         this.thumbnailUrl = thumbnailUrl;
     }
+
 }
