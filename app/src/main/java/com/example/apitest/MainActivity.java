@@ -9,6 +9,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,9 +25,14 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        RecyclerView rcvMain;
+
 
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main);
+
+        rcvMain=findViewById(R.id.rcvMain);
+        rcvMain.setLayoutManager(new LinearLayoutManager(this));
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
@@ -33,16 +40,14 @@ public class MainActivity extends AppCompatActivity {
             return insets;
         });
 
-        final List<DataModel>[] data = new List[1];
+        final List<DataModel>[] alluserlist = new List[1];
 
 
         RetrofitInstance.getInstance().apiInterface.getPhotos().enqueue(new Callback<List<DataModel>>() {
             @Override
             public void onResponse(Call<List<DataModel>> call, Response<List<DataModel>> response) {
-                data[0] = response.body();
-                for(int i = 0; i< data[0].size(); i++){
-                    Log.d("api", "onResponse: "+ data[0].get(i).title);
-                }
+                alluserlist[0] =response.body();
+                rcvMain.setAdapter(new userAdapter(MainActivity.this,alluserlist[0]));
             }
 
             @Override

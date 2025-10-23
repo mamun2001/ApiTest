@@ -1,7 +1,5 @@
 package com.example.apitest;
 
-import java.util.ArrayList;
-
 public class DataModel {
     int albumId;
     int id;
